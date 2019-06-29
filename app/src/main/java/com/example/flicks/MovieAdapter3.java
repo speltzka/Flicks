@@ -1,6 +1,8 @@
 package com.example.flicks;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.flicks.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -59,15 +63,32 @@ public class MovieAdapter3 extends RecyclerView.Adapter<MovieAdapter3.ViewHolder
         // populate the view with the movie data
         holder.tvTitle.setText(movie.getTitle());
         holder.tvOverview.setText(movie.getOverview());
-        //build url for poster image
-        String imageUrl = config.getImageUrl(config.getPosterSize(), movie.getPosterPath());
+
+        //determine orientation
+        boolean isPortrait = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        int placeholderId;
+        ImageView imageView = null;
+
+        String imageUrl = null;
+        if (isPortrait
+        ) {
+            //build url for poster image
+            imageUrl = config.getImageUrl(config.getPosterSize(), movie.getPosterPath());
+            placeholderId = R.drawable.flicks_movie_placeholder;
+            imageView = holder.ivPosterImage;
+        } else {
+            //build url for landscape image
+            imageUrl = config.getImageUrl(config.getBackdropSize(), movie.getBackdropPath());
+            placeholderId = R.drawable.flicks_backdrop_placeholder;
+            imageView = holder.ivBackdropImage;
+        }
         //load image using Glide
         Glide.with(context)
                 .load(imageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-                .placeholder(R.drawable.flicks_movie_placeholder)
-                .error(R.drawable.flicks_movie_placeholder)
-                .into(holder.ivPosterImage);
+                .placeholder(placeholderId)
+                .error(placeholderId)
+                .into(imageView);
     }
 
     //returns the total number of items in the list
@@ -77,18 +98,34 @@ public class MovieAdapter3 extends RecyclerView.Adapter<MovieAdapter3.ViewHolder
     }
 
     //create the viewholder as a static inner class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         //track view objects
         ImageView ivPosterImage;
+        ImageView ivBackdropImage;
         TextView tvTitle;
         TextView tvOverview;
 
         public ViewHolder(View itemView){
             super(itemView);
             //lookup view objects by id
-            ivPosterImage = (ImageView) itemView.findViewById(R.id.mvImage);
+            ivPosterImage = (ImageView) itemView.findViewById(R.id.ivPosterImage);
+            ivBackdropImage = (ImageView) itemView.findViewById(R.id.ivBackdropImage);
             tvOverview = (TextView) itemView.findViewById(R.id.description);
             tvTitle = (TextView) itemView.findViewById(R.id.movieTitle);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // gets position
+            int position = getAdapterPosition();
+            if (position!= RecyclerView.NO_POSITION){
+                Movie movie = movies.get(position);
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                context.startActivity(intent);
+            }
+
         }
     }
 }

@@ -21,7 +21,7 @@ public class Config {
         posterSize = posterSizeOptions.optString(3, "w342");
 
         //causing problem
-        JSONArray backgroundSizeOptions = images.getJSONArray("background_sizes");
+       JSONArray backgroundSizeOptions = images.getJSONArray("backdrop_sizes");
         backdropSize = backgroundSizeOptions.optString(1, "w780");
     }
 
