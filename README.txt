@@ -30,14 +30,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/speltzka/Flicks/blob/master/FlicksVideo2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+https://github.com/speltzka/Flicks/blob/master/FlicksVideo2.gif
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 I was happy to be able to implement many of the stretch features, although I didn't end up having enough time to implement the last two.
-My favorite part was being able to polish the appearance of the app.
 
 ## Open-source libraries used
 
