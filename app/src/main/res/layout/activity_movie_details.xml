@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context="com.example.flicks.MovieDetailsActivity">
 
     <TextView
         android:id="@+id/tvTitle"
-        android:background="#000000"
         android:textColor="#FFFFFF"
-        android:outlineAmbientShadowColor="#BA000000"
-        android:outlineSpotShadowColor="#00FFFFFF"
         android:shadowColor="#04B493"
+        android:shadowRadius="30"
         android:layout_width="0dp"
         android:fontFamily="@font/bangers"
         android:layout_height="wrap_content"
@@ -30,7 +29,6 @@
 
     <RatingBar
         android:id="@+id/rbVoteAverage"
-        android:background="#000000"
         android:textColor="#FFFFFF"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
@@ -49,7 +47,6 @@
 
     <TextView
         android:id="@+id/tvOverview"
-        android:background="#000000"
         android:textColor="#FFFFFF"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
